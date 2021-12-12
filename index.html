@@ -42,8 +42,12 @@
 <div id="map"></div>
 <script>
 var map = L.map('map').setView([37.0902, -95.7129], 4);
+map.options.zoomSnap = 0;
+map.options.zoomDelta = 0.25;
 map.options.maxZoom = 5;
-map.options.minZoom = 3;
+map.options.minZoom = 4;
+
+
 
 let Position = L.Control.extend({ 
       _container: null,
