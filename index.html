@@ -135,80 +135,47 @@ this.map.addEventListener('mousemove', (event) => {
   	}
 
   	
-  	currentCities = []
+  	selectedLocation = []
+
   	for (var x = 0; x < interSectingPlaces.length; x++) {
+
+
   		place = interSectingPlaces[x];
   		var PopUpLayer = map._layers[place['id']];
   		cityName = ""
 
 
+  		// If the second intersection occurs
+  		// Update the city Name to the latest Intersection of the list
+
+
   		if (place['intersecting'] == true) {
   			cityName = PopUpLayer._popup._content
   			PopUpLayer.setStyle({fillColor: 'red', color: 'red'});
-  			currentCities.push(cityName)
-
-  			// One City Highlighted
-  			if (currentCities.length === 1) {
-  				modalTitle.innerHTML = currentCities[0]
-  			}
-
-  			// Two cities Highlighted
-  			if (currentCities.length === 2) {
-
-  				// Create a table with two columns
-  				var table = `
-  				<table style="width:100%; text-align: center;">
-					  <tr>
-					    <td>${currentCities[0]}</td>
-					    <td>${currentCities[1]}</td>
-					  </tr>
-					</table>`
-
-  				modalTitle.innerHTML = table
-  			}
-
-  			// Three cities Highlighted
-  			if (currentCities.length === 3) {
-
-  				// Create a table with two columns
-  				var table = `
-  				<table style="width:100%; text-align: center;">
-					  <tr>
-					    <td>${currentCities[0]}</td>
-					    <td>${currentCities[1]}</td>
-					    <td>${currentCities[2]}</td>
-					  </tr>
-					</table>`
-
-  				modalTitle.innerHTML = table
-  			}
-
-  			// Four cities Highlighted
-  			if (currentCities.length === 4) {
-
-  				// Create a table with two columns
-  				var table = `
-  				<table style="width:100%; text-align: center;">
-					  <tr>
-					    <td>${currentCities[0]}</td>
-					    <td>${currentCities[1]}</td>
-					    <td>${currentCities[2]}</td>
-					    <td>${currentCities[3]}</td>
-					  </tr>
-					</table>`
-
-  				modalTitle.innerHTML = table
-  			}
+  			modal.style.display = "block";
+  			selectedLocation.push(cityName)
 
   		}
 
-  		if (place['intersecting'] == false) {
+  		else if (place['intersecting'] == false) {
 
   			PopUpLayer.setStyle({fillColor: '#0000FF', color: 'blue'});
+
+  			//
+
   		}
+
 
   			
 
+  	}
+
+  	if (selectedLocation.length > 0) {
+  		modal.style.display = "block";
+  		modalTitle.innerHTML = selectedLocation[selectedLocation.length - 1]
+
+  	} else {
+  		modal.style.display = "none";
   	}
 
 
