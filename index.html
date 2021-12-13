@@ -32,19 +32,58 @@
 	cursor: pointer;
 }
 
-.leafletPopUp {
-	font-weight: bold;
+/* The Modal (background) */
+.modal {
+  display: block;
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  left: 20vw;
+  top: 50％;
+  height: 5vh;
+  width: 50vw;
+
 }
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  border: 1px solid #888;
+  width: 100%;
+}
+
+
+
+
 </style>
 
 </head>
 <body>
+
+<!-- The Modal -->
+
+
 <div id="map"></div>
+
+<center>
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+
+    <p id ="modal-title"><b>Hover over or tap on the square to see a city!</b></p>
+  </div>
+
+</div>
+</center>
+
+
 <script>
-var map = L.map('map').setView([37.0902, -95.7129], 4);
-map.options.zoomSnap = 0;
-map.options.zoomDelta = 0.25;
-map.options.maxZoom = 5;
+var modal = document.getElementById("myModal");
+var modalTitle = document.getElementById("modal-title");
+
+
+var map = L.map('map').setView([37.31885, -80.21857], 5);
 map.options.minZoom = 4;
 
 
@@ -94,44 +133,85 @@ this.map.addEventListener('mousemove', (event) => {
   		interSecting = poly.contains({"lat": lat, "lng": lng});
   		interSectingPlaces.push({"id": poly._leaflet_id,"intersecting": interSecting})
   	}
-  	console.log(interSectingPlaces)
 
-
-
+  	
+  	currentCities = []
   	for (var x = 0; x < interSectingPlaces.length; x++) {
   		place = interSectingPlaces[x];
-
   		var PopUpLayer = map._layers[place['id']];
+  		cityName = ""
+
 
   		if (place['intersecting'] == true) {
-  			
-  			dynamicPopup.setLatLng([lat, lng]);
-
   			cityName = PopUpLayer._popup._content
+  			PopUpLayer.setStyle({fillColor: 'red', color: 'red'});
+  			currentCities.push(cityName)
 
-  			var content = `
-  			<center>
-  			<h2><i class="fas fa-map-marker"></i>  ${cityName} </h2> 
-  			<h3>See eclipse viewing information from ${cityName} name.</h3>
-  			<button class="button"> Click for Blog Site </button>
-  			</center>
+  			// One City Highlighted
+  			if (currentCities.length === 1) {
+  				modalTitle.innerHTML = currentCities[0]
+  			}
 
+  			// Two cities Highlighted
+  			if (currentCities.length === 2) {
 
+  				// Create a table with two columns
+  				var table = `
+  				<table style="width:100%; text-align: center;">
+					  <tr>
+					    <td>${currentCities[0]}</td>
+					    <td>${currentCities[1]}</td>
+					  </tr>
+					</table>`
 
-  			`
+  				modalTitle.innerHTML = table
+  			}
 
+  			// Three cities Highlighted
+  			if (currentCities.length === 3) {
 
-  			dynamicPopup.setContent(content);
-  			dynamicPopup.openOn(map);
+  				// Create a table with two columns
+  				var table = `
+  				<table style="width:100%; text-align: center;">
+					  <tr>
+					    <td>${currentCities[0]}</td>
+					    <td>${currentCities[1]}</td>
+					    <td>${currentCities[2]}</td>
+					  </tr>
+					</table>`
+
+  				modalTitle.innerHTML = table
+  			}
+
+  			// Four cities Highlighted
+  			if (currentCities.length === 4) {
+
+  				// Create a table with two columns
+  				var table = `
+  				<table style="width:100%; text-align: center;">
+					  <tr>
+					    <td>${currentCities[0]}</td>
+					    <td>${currentCities[1]}</td>
+					    <td>${currentCities[2]}</td>
+					    <td>${currentCities[3]}</td>
+					  </tr>
+					</table>`
+
+  				modalTitle.innerHTML = table
+  			}
+
   		}
-
 
   		if (place['intersecting'] == false) {
-  			//PopUpLayer.closePopup();
 
+  			PopUpLayer.setStyle({fillColor: '#0000FF', color: 'blue'});
   		}
 
+  			
+
   	}
+
+
   })
 
 
