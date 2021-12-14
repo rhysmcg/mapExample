@@ -1,192 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head>	
-<title>USA MAP</title>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
-<link rel="stylesheet" href="css/leaflet.css"/>
-<script src="js/leaflet.js"></script>
-<script src="js/wise-leaflet-pip.js"></script>
-<script src="js/all.min.js"></script>
+<head>
 
-<style>
-#map{
-	margin:  0;
-  	position: absolute;
-  	padding: 0;
-  	top: 0;
-  	bottom: 0;
-  	width: 99%;
-}
-.button {
-	background-color: #008CBA;
-	border: none;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-}
+  <!-- Tab Code (Icon and Text) -->
+  <title>USA MAP</title>
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
 
-/* The Modal (background) */
-.modal {
-  display: none;
-  position: fixed; /* Stay in place */
-  z-index: 1000; /* Sit on top */
-  left: 20vw;
-  top: 50％;
-  height: 5vh;
-  width: 50vw;
+  <!-- Allow multi-lingual character support and mobile scaling -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-}
+  <!-- Load in Leaflet, the map code -->
+  <link rel="stylesheet" href="css/leaflet.css"/>
+  <script src="js/leaflet.js"></script>
+  <script src="js/wise-leaflet-pip.js"></script>
+  <script src="js/all.min.js"></script>
 
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  border: 1px solid #888;
-  width: 100%;
-}
-
-
-
-
-</style>
-
+  <!-- Custom Map Styling here -->
+  <link rel="stylesheet" type="text/css" href="css/MapStyles.css"/>
 </head>
 <body>
 
-<!-- The Modal -->
-
-
+<!-- Map Eleemnt -->
 <div id="map"></div>
 
-<center>
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
+<!-- Pop Up Window -->
+<div id="locationPopup" class="modal">
   <div class="modal-content">
-
-    <p id ="modal-title"><b>Hover over or tap on the square to see a city!</b></p>
+    <p id ="locationTitle"><b>Hover over or tap on the square to see a city!</b></p>
   </div>
-
 </div>
-</center>
 
-
-<script>
-var modal = document.getElementById("myModal");
-var modalTitle = document.getElementById("modal-title");
-
-
-var map = L.map('map').setView([37.31885, -80.21857], 5);
-map.options.minZoom = 4;
-
-
-
-let Position = L.Control.extend({ 
-      _container: null,
-      options: {
-        position: 'bottomleft'
-},
-  onAdd: function (map) {
-    var latlng = L.DomUtil.create('div', 'mouseposition');
-    this._latlng = latlng;
-    return latlng;
-  },
-
-  updateHTML: function(lat, lng) {
-    var latlng = lat + " " + lng;
-    this._latlng.innerHTML = "LatLng: " + latlng;
-  }
-});
-
-this.position = new Position();
-this.map.addControl(this.position);
-
-var dynamicPopup = L.popup()
-
-
-var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-	maxZoom: 18,
-	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-		'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-	id: 'mapbox/streets-v11',
-	tileSize: 512,
-	zoomOffset: -1
-}).addTo(map);
-
-this.map.addEventListener('mousemove', (event) => {
-
-    var lat = Math.round(event.latlng.lat * 100000) / 100000;
-    var lng = Math.round(event.latlng.lng * 100000) / 100000;
-    this.position.updateHTML(lat, lng);
-
-    interSectingPlaces = []
-  	
-  	for (var i = 0; i < polyList.length; i++) {
-  		poly = polyList[i];
-  		interSecting = poly.contains({"lat": lat, "lng": lng});
-  		interSectingPlaces.push({"id": poly._leaflet_id,"intersecting": interSecting})
-  	}
-
-  	
-  	selectedLocation = []
-
-  	for (var x = 0; x < interSectingPlaces.length; x++) {
-
-
-  		place = interSectingPlaces[x];
-  		var PopUpLayer = map._layers[place['id']];
-  		cityName = ""
-
-
-  		// If the second intersection occurs
-  		// Update the city Name to the latest Intersection of the list
-
-
-  		if (place['intersecting'] == true) {
-  			cityName = PopUpLayer._popup._content
-  			PopUpLayer.setStyle({fillColor: 'red', color: 'red'});
-  			modal.style.display = "block";
-  			selectedLocation.push(cityName)
-
-  		}
-
-  		else if (place['intersecting'] == false) {
-
-  			PopUpLayer.setStyle({fillColor: '#0000FF', color: 'blue'});
-
-  			//
-
-  		}
-
-
-  			
-
-  	}
-
-  	if (selectedLocation.length > 0) {
-  		modal.style.display = "block";
-  		modalTitle.innerHTML = selectedLocation[selectedLocation.length - 1]
-
-  	} else {
-  		modal.style.display = "none";
-  	}
-
-
-  })
-
-
-
-
-
-</script>
-    <script src="js/locations.js"></script>
+<!-- Custom Code to Enable highlighting and for loading in locations -->
+<script src="js/mapProperties.js"></script>
+<script src="js/MapHighlighting.js"></script>
+<script src="js/locations.js"></script>
 
 
 </body>
