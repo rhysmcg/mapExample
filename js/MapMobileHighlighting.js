@@ -200,6 +200,7 @@ var currentCity = ""
 
           cityName = PopUpLayer._popup._content
 
+          // Used to detect the thing
           if (currentCity != cityName) {
           
           PopUpLayer.setStyle(
@@ -215,6 +216,17 @@ var currentCity = ""
 
         } else {
           var linkFunction = PopUpLayer._events['contextmenu'][0]['fn']
+
+          PopUpLayer.setStyle(
+          {
+            fillColor: PolygonStyles['selectedFillColor'],
+            color: PolygonStyles['selectedStrokeColor']
+          });
+          modal.style.display = "block";
+          selectedLocation.push(cityName)
+          selectedPolygon = interSectingPolygonId
+          currentCity = cityName;
+          
           linkFunction();
         }
 
