@@ -124,6 +124,8 @@ this.map.addEventListener('mousemove', (event) =>
 
 } else {
 
+  modal.style.top = '12%'
+
 var selectedPolygon = 0
 
   // Remove all click events from polygons in the list for Mobile Mode
