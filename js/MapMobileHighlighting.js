@@ -130,7 +130,7 @@ var selectedPolygon = 0
   for (var i =0; i < polyList.length; i++) {
     polygon = polyList[i];
     var popupContent = polygon._popup._content
-    //popupContent = popupContent.replace('Click this square', 'Click and hold this square')
+    popupContent = popupContent.replace('<br>', ' ')
     polygon._popup._content = popupContent
     // Save the link function from locations.js
     var linkFunction = polygon._events.click[1].fn
