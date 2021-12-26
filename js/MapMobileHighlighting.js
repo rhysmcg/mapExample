@@ -44,7 +44,7 @@ this.map.addEventListener('mousemove', (event) =>
 
   var lat = Math.round(event.latlng.lat * 100000) / 100000;
   var lng = Math.round(event.latlng.lng * 100000) / 100000;
-  this.position.updateHTML(lat, lng);
+
 
   interSectingPlaces = []
 
