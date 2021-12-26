@@ -126,6 +126,8 @@ this.map.addEventListener('mousemove', (event) =>
 
   modal.style.top = '12%'
 
+
+
 var selectedPolygon = 0
 
   // Remove all click events from polygons in the list for Mobile Mode
@@ -236,6 +238,8 @@ var currentCity = ""
 
     }
 
+
+
       if (selectedLocation.length > 0)
       {
         modal.style.display = "block";
@@ -247,6 +251,9 @@ var currentCity = ""
       {
         modal.style.display = "none";
       }
+  modalTitle.style.paddingLeft = "20px";
+  modalTitle.style.paddingRight = "20px";
+
     })
 
   map.on("dblclick", function() {
