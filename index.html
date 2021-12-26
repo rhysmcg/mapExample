@@ -38,12 +38,43 @@
   </div>
 </div>
 
+
+<div id="eclipseSelector" class="eclipseSelector">
+  <h4>Total Solar Eclipse of April 8, 2024</h4>
+  <p>This is line 1 of the paragraph</p>
+  <p>This is line 2 of the paragraph</p>
+  <a href="https://eclipse2024.org/eclipse-simulator/">Select another eclipse</a>
+</div>
+
+
+<div id="logoCopyright" class="logoCopyright">
+<div id="image_box">
+      <img src="images/logo-solar-eclipse-primary.jpeg" style="width:80px;" alt="logo of eclipse2024.org">
+      <img src="images/logo-solar-eclipse.jpeg" style="width:75px;padding-left:1.2em;" alt="logo of eclipse2024.org">   
+    </div>
+    <p style="background-color: darkgrey">Eclipse data © 2017-2021 Eclipse2017.org dba Eclipse2024.org.<br>All Rights Reserved.</p>
+
+</div>
+
+
+
 <!-- Custom Code to Enable highlighting and for loading in locations -->
 <script src="js/mapProperties.js"></script>
 <script>
 var modal = document.getElementById("locationPopup");
 var modalTitle = document.getElementById("locationTitle");
+
+
 var map = L.map('map').setView(start_coordinates, start_zoomLevel);
+map.zoomControl.remove();
+
+L.control.zoom({
+    position: 'topright'
+}).addTo(map);
+
+
+
+
 map.options.minZoom = minZoom;
 var dynamicPopup = L.popup()
 var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
