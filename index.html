@@ -8,7 +8,7 @@
 
   <!-- Allow multi-lingual character support and mobile scaling -->
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
   <!-- Load in Leaflet CSS from CDN-->
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -43,35 +43,39 @@
   <h4>Total Solar Eclipse of April 8, 2024</h4>
   <p>This is line 1 of the paragraph</p>
   <p>This is line 2 of the paragraph</p>
-  <a href="https://eclipse2024.org/eclipse-simulator/">Select another eclipse</a>
+  <a href="https://eclipse2024.org/eclipse-simulator" target="_blank">Select another eclipse</a>
 </div>
 
 
-<div id="logoCopyright" class="logoCopyright">
-<div id="image_box">
-      <img src="images/logo-solar-eclipse-primary.jpeg" style="width:80px;" alt="logo of eclipse2024.org">
-      <img src="images/logo-solar-eclipse.jpeg" style="width:75px;padding-left:1.2em;" alt="logo of eclipse2024.org">   
-    </div>
-    <p style="background-color: darkgrey">Eclipse data © 2017-2021 Eclipse2017.org dba Eclipse2024.org.<br>All Rights Reserved.</p>
-
-</div>
 
 
 
 <!-- Custom Code to Enable highlighting and for loading in locations -->
 <script src="js/mapProperties.js"></script>
+
+
+
 <script>
 var modal = document.getElementById("locationPopup");
 var modalTitle = document.getElementById("locationTitle");
 
 
-var map = L.map('map').setView(start_coordinates, start_zoomLevel);
+var map = L.map('map', {
+  attributionControl: false
+}).setView(start_coordinates, start_zoomLevel);
+
+
+
+
 map.zoomControl.remove();
 
 L.control.zoom({
     position: 'topright'
 }).addTo(map);
 
+// GET THE CURRENT YEAR
+const d = new Date();
+let year = d.getFullYear();
 
 
 
@@ -80,12 +84,21 @@ var dynamicPopup = L.popup()
 var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
 {
   maxZoom: 18,
-  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+  attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>' + ' </br> Eclipse data © 2017-' + year + ' eclipse2017.org dba eclipse2024.org.' + ' All Rights Reserved.',
   id: 'mapbox/streets-v11',
   tileSize: 512,
   zoomOffset: -1
 }).addTo(map);
+
+
+L.control.attribution({
+  position: 'bottomleft'
+}).addTo(map);
+
+document.getElementsByClassName( 'leaflet-control-attribution' )[0].style.fontSize = '7px';
+
+
+
 </script>
 <script src="js/locations.js"></script>
 <script src="js/MapMobileHighlighting.js"></script>
