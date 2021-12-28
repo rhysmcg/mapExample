@@ -54,13 +54,28 @@ html, body, #map {
   position: absolute; /* Stay in place */
   background-color: rgba(255,255,255,0.7);
   text-align: right;
-  padding-right: 15px;
-  font-size: 8px;
-  line-height: 0.8;
-  z-index: 900; /* Sit on top but underneath the modal */
+  padding: 20px;
+  text-align: center;
+  font-style: normal;
+  font-variant-ligatures: normal;
+  font-variant-caps: normal;
+  font-variant-numeric: normal;
+  font-variant-east-asian: normal;
+  font-weight: 400;
+  font-stretch: normal;
+  font-size: 9px;
+  line-height: 1.2;
+  font-family: Roboto, Arial, sans-serif;
+  z-index: 900;
   right: 0px;
-  bottom: 15px;
-  width: 250px;
+  margin-top:  0px;
+  margin-bottom: 0px;
+  bottom: 13px;
+  height: 0px;
+  width: 280px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
 }
-
 
