@@ -39,7 +39,26 @@ if (isMobile) {
     zoomControlOptions: {
       position: google.maps.ControlPosition.TOP_RIGHT,
     }
+
+
+
+
+
+
   });
+
+    // If it's less than 320px, make the width 100%
+
+    var width = window.innerWidth;
+
+    if (width < 320) {
+        var copyrightWindow = document.getElementById('copyrightWindow')
+        copyrightWindow.style.width = '185px';
+        copyrightWindow.style.fontSize = '8px';
+        copyrightWindow.style.paddingLeft = '1px;'
+        copyrightWindow.style.paddingRight = '1px;'
+    }
+
   } else {
       map = new google.maps.Map(document.getElementById("map"), {
     center: mobile_start_coordinates,
